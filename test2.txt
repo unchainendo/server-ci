@@ -1,0 +1,764 @@
+APAR,Affected Products,Severity,Description,"""説明 """
+HU01555,V3700,High Importance,The system may generate duplicate WWPNs ,"""システムは、重複するWWPNを生成する可能性がある """,Hosts
+Symptom,Configuration
+Environment,Storwize V3700 systems
+Trigger,None
+Workaround,None
+HU01391 & HU01581,"V7000, V5000, V3700, V3500",Suggested,Storwize systems may experience a warmstart due to an uncorrectable error in the SAS firmware ,"""StorwizeシステムがSASファームウェアでの訂正不能エラーが原因でwarmstartが発生する可能性があります """,Drives
+Symptom,Single Node Assert
+Environment,Storwize systems
+Trigger,None
+Workaround,None
+HU00733,All,HIPER,Stop with access results in node asserts after a recovervdiskbysystem command ,"""ノードのアクセス結果を停止し、recovervdiskbysystemコマンドの後に表明 """,Global Mirror
+Symptom,Multiple Node Assert
+Environment,All
+Trigger,Stopping RC with -access. Remove nodes from IO group. Run a recovervdisk command.
+Workaround,Avoid the use of recovervdisk when any remote copy is stopped with -access
+HU01245,"SVC, V7000, V5000, V3700",High Importance,"Making any config change that may interact with the primary change volume of a GMCV relationship, 
+	            whilst data is being actively copied, can result in a node assert ","""GMCVの関係の1次変更ボリュームと対話する可能性のある構成を変更する。 \n \t            データがアクティブにコピーされているときに、ノードになることを表明 """,Global Mirror With Change Volumes
+Symptom,Multiple Node Asserts
+Environment,Systems using Global Mirror with Change Volumes
+Trigger,Add/remove a vdisk copy from a primary change volume
+Workaround,Avoid adding or removing primary change volumes while the relationship is in use
+HU01353,All,Suggested,"CLI allows the input of carriage return characters into certain fields, after cluster creation, 
+	            resulting in invalid cluster VPD and failed node adds ","""CLIの馬車に入力できる文字を戻す特定のフィールドに、クラスターを作成した後に、 \n \t            無効なクラスターのVPD、障害ノードの結果を追加します """,
+Symptom,Configuration
+Environment,All systems
+Trigger,After cluster creation use the CLI to enter a carriage return in a command that allows free text in an argument
+Workaround,Do not insert a carriage return character into text being entered via CLI
+HU00719,"V3700, V3500",High Importance,After a power failure both nodes may repeatedly assert and then attempt an auto-node rescue. This will remove hardened data and require a T3 recovery ,"""電源障害の両方のノードを繰り返し主張して自動ノード・レスキューを試みることができます。  これは固定データが除去され、T3リカバリーを必要とする """,
+Symptom,Multiple Node Asserts
+Environment,V3500 & V3700 systems
+Trigger,Power outage
+Workaround,None
+HU01082,"V7000, V5000, V3700, V3500",High Importance,A limitation in the RAID anti-deadlock page reservation process may lead to an mdisk group going offline ,"""RAIDの反ゆきづまりページ予約プロセスで制限がMDiskグループがオフラインにつながりかねない """,Hosts
+Symptom,Loss of Access to Data
+Environment,Storwize systems
+Trigger,None
+Workaround,None
+HU01185,All,High Importance,iSCSI target closes connection when there is a mismatch in sequence number ,"""iSCSIターゲット・シーケンス番号の不一致がある場合に接続をクローズする """,iSCSI
+Symptom,Loss of Access to Data
+Environment,Systems with iSCSI connected hosts
+Trigger,Out of sequence IO
+Workaround,None
+IT16337,"SVC, V7000, V5000",High Importance,Hardware offloading in 16G FC adapters has introduced a deadlock condition that causes many driver commands to time out leading to a node assert ,"""FC 16Gアダプターのハードウェア・オフロードは、ノードへ流出する時に多くのドライバーのコマンドを引き起こすデッドロック条件を導入したと主張 """,
+Symptom,Multiple Node Asserts
+Environment,Systems running v7.4 or later using 16Gb HBAs
+Trigger,None
+Workaround,None
+HU01000,All,Suggested,SNMP and Call Home stop working when a node reboots and the Ethernet link is down ,"""ノードをリブートし、イーサネット・リンクがダウンしているときに作業用のSNMPおよびコール・ホームを停止 """,System Monitoring
+Symptom,None
+Environment,All systems
+Trigger,Node service IP offline prior to reboot
+Workaround,None
+HU01212,All,Suggested,GUI displays an incorrect timezone description for Moscow ,"""GUIはロシアに誤ったタイム・ゾーン記述の表示 """,Graphical User Interface
+Symptom,None
+Environment,All
+Trigger,None
+Workaround,Use CLI to track
+HU01227,All,Suggested,High volumes of events may cause the email notifications to become stalled ,"""イベントのハイボリュームEメール通知が停止となる可能性があります """,System Monitoring
+Symptom,None
+Environment,Systems running v7.6 or later
+Trigger,More than 15 events per second
+Workaround,None
+HU01258,SVC,Suggested,A compressed Vdisk copy will result in an unexpected 1862 message when site/node fails over in a stretched cluster configuration ,"""圧縮されたVDiskコピーサイト/ストレッチ・クラスター構成ノードにフェイルオーバーしたときに、予期しない1862メッセージになります。 """,Compression
+Symptom,None
+Environment,SVC systems running v7.4 or later in a Stretched Cluster configuration
+Trigger,Site/node failover
+Workaround,None
+HU01447,All,Critical,The management of FlashCopy grains during a restore process can miss some IOs ,"""リストア・プロセス中に粒のFlashCopyの管理はIOsのミス """,FlashCopy
+Symptom,Data Integrity Loss
+Environment,Systems running v7.5 or later using FlashCopy
+Trigger,None
+Workaround,None
+HU00271,All,"
+		        High Importance
+		    ","An extremely rare timing window condition in the GM code may cause multiple node asserts 
+	            ","""極めて異例のタイミングウィンドウ状態GMコードに複数のノードがあることがあります """,Global Mirror
+Symptom,Multiple Node Asserts
+Environment,Systems using GM
+Trigger,None
+Workaround,None
+HU00915,"SVC, V7000, V5000, V3700","
+		        High Importance
+		    ","Loss of access to data when removing volumes associated with a GMCV relationship 
+	            ","""GMCV関係に関連付けられたボリュームの除去時にデータへのアクセスの消失 """,Global Mirror With Change Volumes
+Symptom,Loss of Access to Data
+Environment,Systems using GMCV
+Trigger,"Deleting a Vdisk in a GMCV relationship, if the Vdisk and the RC controlled FlashCopy map in this relationship have the same ID"
+Workaround,Use chrcrelationship -nomasterchange or -noauxchange before removing Vdisks
+HU01062,All,"
+		        High Importance
+		    ","T2 recovery may occur when max replication delay is used and remote copy IO is delayed 
+	            ","""T2リカバリーmax replicationの遅延が使用され、リモート・コピーに入出力が遅延した場合に発生することがあります """,Global Mirror
+Symptom,Loss of Access to Data
+Environment,Systems running v7.4 or later using Global Mirror
+Trigger,None
+Workaround,Set the max_replication_delay value to 0
+HU01140,All,"
+		        High Importance
+		    ","Easy Tier may unbalance the workloads on MDisks using specific Nearline SAS drives due to incorrect thresholds for their performance 
+	            ","""Easy Tierが特定のニアラインSASを使用してMDisk上のワークロードをふつり可能性があるパフォーマンスのしきい値が正しくないため、ドライブ """,EasyTier
+Symptom,Performance
+Environment,Systems running v7.3 or later using Easy Tier
+Trigger,None
+Workaround,Add Enterprise-class drives to the MDisk or MDisk group that is experiencing unbalanced workloads
+HU01141,All,"
+		        High Importance
+		    ","Node assert, possibly due to a network problem, when a CLI mkippartnership is issued. This may lead to loss of the config node, requiring a T2 recovery 
+	            ","""ノードも、場合によってはネットワークの問題のために、CLIのmkippartnershipが発行されます。  これは、T2がリカバリーを必要とする可能性がある構成ノードの損失につながりかねない """,IP Replication
+Symptom,Multiple Node Asserts
+Environment,Systems running v7.5 or later using IP Replication
+Trigger,Enter mkippartnership CLI command
+Workaround,Ensure partner cluster IP can be pinged before issuing a mkippartnership CLI command
+HU00649,"V3700, V3500",Suggested,"In rare cases an unexpected IP address may be configured on management port eth0. This IP address is neither the service IP nor the cluster IP, but most likely set by DHCP during boot 
+	            ","""まれに、予期しないIPアドレス管理ポートeth0で構成されている可能性があります。  このIPアドレスは、サービスIPおよびクラスターIPでもないが、最も考えられるブート時にDHCPの設定 """,
+Symptom,None
+Environment,All V3500 and V3700 systems
+Trigger,None
+Workaround,None
+HU00909,All,Suggested,"Single node assert may occur when removing an MDisk group that was using EasyTier 
+	            ","""単一のノードとするEasyTierを使用しているMDiskグループを削除するときに発生する可能性があります """,EasyTier
+Symptom,Single Node Assert
+Environment,Systems running v7.4 or later using Easy Tier
+Trigger,Removing a Mdisk group
+Workaround,None
+HU00928,V7000,Suggested,"For certain IO patterns a SAS firmware issue may lead to transport errors that become so prevalent that they cause a drive to become failed 
+	            ","""SASファームウェア問題の普及は失敗となるドライブが原因となるエラーがトランスポートにつながる一定のIOパターンは """,
+Symptom,None
+Environment,V7000 Gen 1 running v7.3 or later with large configurations
+Trigger,None
+Workaround,None
+HU01024,"V5000, V3700, V3500",Suggested,A single node assert may occur when the SAS firmware's ECC checking detects a single bit error. The assert clears the error condition in the SAS chip ,"""単一ノードのassert SASファームウェアの検査が1つのビットECCエラーを検出したときに発生する可能性があります。  主張はSASチップ内のエラー条件をクリア """,
+Symptom,Single Node Assert
+Environment,Systems running v7.4 or later
+Trigger,None
+Workaround,None
+HU01042,"SVC, V7000, V5000",Suggested,"Single node assert due to 16Gb HBA firmware behaviour 
+	            ","""単一ノード16Gb HBAファームウェアを動作する予定を表明 """,
+Symptom,Single Node Assert
+Environment,Systems running v7.4 or later using 16Gb HBAs
+Trigger,None
+Workaround,None
+HU01064,"SVC, V7000, V5000, V3700",Suggested,"Management GUI incorrectly displays FC mappings that are part of GMCV relationships 
+	            ","""管理GUIが正しくGMCV関係の一部であるFCマッピングの表示 """,Graphical User Interface
+Symptom,None
+Environment,Systems running v7.4 or later
+Trigger,Node assert
+Workaround,None
+HU01074,All,Suggested,"An unresponsive testemail command, possible due to a congested network, may result in a single node assert 
+	            ","""unresponsive testemailコマンドは、ネットワーク輻輳により、結果は単一ノードのassert可能性があります """,
+Symptom,Single Node Assert
+Environment,Systems running v7.4 or later
+Trigger,None
+Workaround,Avoid changes to the email notification feature
+HU01097,"V5000, V3700, V3500",Suggested,"For a small number of node asserts the SAS register values are retaining incorrect values rendering the debug information invalid 
+	            ","""ノードの数が少ない場合は、SASレジスター値とするデバッグ情報を正しくレンダリングが正しくない値を保持している """,Support Data Collection
+Symptom,None
+Environment,Systems running v7.4 or later
+Trigger,None
+Workaround,None
+HU01110,All,Suggested,"No support for SSH connections using RC4 based ciphers 
+	            ","""RC4ベースの暗号を使用してSSH接続のサポートはありません。 """,
+Symptom,None
+Environment,Systems running v7.5 or later
+Trigger,None
+Workaround,None
+HU01144,V7000,Suggested,"Single node assert on the config node due to GUI contention 
+	            ","""単一ノードGUIの競合が原因で、構成ノードで表明 """,Graphical User Interface
+Symptom,Single Node Assert
+Environment,V7000 Gen 2 systems running v7.5 or later
+Trigger,None
+Workaround,Disable GUI
+HU01240,All,Suggested,"For some volumes the first write IO, after a significant period (>120 sec) of inactivity, may experience a slightly elevated response time ","""一部のボリュームは、最初の書き込み入出力の場合、inactivityはかなりの期間( 120秒)後、こだかいの応答時間が発生する可能性があります """,
+Symptom,None
+Environment,Systems running v7.3 or later
+Trigger,No write IO for >120 seconds
+Workaround,Ensure relevant volume receives at least one write IO per 120 second interval
+HU00990,All,HIPER,"A node assert on a cluster with Global Mirror secondary volumes can also result in a delayed response to hosts performing I/O to the Global Mirror primary volumes 
+	            ","""ノードがグローバル・ミラー2次ボリューム上のクラスターでの表明は、グローバル・ミラーの1次ボリュームへの入出力を実行するホストへの対応の遅れになることもできます。 """,Global Mirror
+Symptom,Loss of Access to Data
+Environment,Systems running V7.4 or later using Global Mirror
+Trigger,Node assert on the secondary cluster 
+Workaround,Use GMCV
+HU01053,All,"
+		        High Importance
+		    ","An issue in the drive automanage process during a replacement may result in a T2 recovery 
+	            ","""取り替え時にはドライブがautomanageプロセスで発行されたT2の回復につながる可能性がある """,
+Symptom,Loss of Access to Data
+Environment,Systems running v7.5 or later
+Trigger,Replacing a drive
+Workaround,"Avoid the drive automanage process. Remove the failed drive and unmanage it, changing its use. Once it no longer appears in lsdrive then the new drive may be inserted and managed manually"
+HU01060,All,"
+		        High Importance
+		    ","Prior asserts, perhaps due to a hardware error, can induce a ""dormant state"" within the FlashCopy code that may result in further asserts. 
+	            ","""前に生まれ、おそらくハードウェア・エラーのために、さらにになる可能性があると主張しているフラッシュ・コード内で「休止状態」を促すことができます。 """,FlashCopy
+Symptom,Multiple Node Asserts
+Environment,Systems running v7.5 or later using FlashCopy
+Trigger,Prior node asserts
+Workaround,None
+HU01067,"SVC, V7000, V5000","
+		        High Importance
+		    ","Node warmstarts in two IO groups when using Hyperswap 
+	            ","""Hyperswapを使用する場合、2つの入出力グループにノードがウォーム・スタート """,HyperSwap
+Symptom,Multiple Node Asserts
+Environment,Systems running v7.5 or later using HyperSwap
+Trigger,Host IO to a HyperSwap volume being directed to both HyperSwap volume copies
+Workaround,"If possible, change host settings so IO is directed only to a single volume copy (i.e. a single IO group) for each volume"
+HU01072,All,"
+		        High Importance
+		    ","Node asserts due to throttling causing dropped IOs 
+	            ","""Nodeスロットルが原因でドロップが発生する入出力 """,Throttling
+Symptom,Multiple Node Asserts
+Environment,Systems running v7.5 or later
+Trigger,None
+Workaround,Disable throttling
+IT14917,All,"
+		        High Importance
+		    ","Node asserts due to a timing window in the cache component. For more details refer to the following 
+	             Flash
+","""タイミング・ウィンドウでノード・キャッシュ・コンポーネントのために主張している。  詳細については以下を参照してください \n \t             フラッシュ """,Cache
+Symptom,Multiple Node Asserts
+Environment,"Systems running v7.4.0.9, v7.5.0.7 and v7.6.0.4"
+Trigger,None
+Workaround,None
+HU00831 (reverted),All,Suggested,This APAR has been reverted in light of issues with the fix. This APAR will be re-applied in a future PTF ,"""このAPARの修正問題背景に戻されている。  このAPARが将来のPTFに適用されます """
+HU00927,All,Suggested,"Single node assert may occur while fast formatting a volume 
+	            ","""単一ノードのassert高速ボリュームのフォーマット設定中に発生する可能性があります """,
+Symptom,Single Node Assert
+Environment,Systems running v7.5
+Trigger,Create a new volume using fast format
+Workaround,None
+HU00935,All,Suggested,"A single node assert may occur when memory is asynchronously allocated for an IO and the underlying FlashCopy map has changed at exactly the same time. 
+	            ","""単一ノードのassertメモリーが非同期入出力および基礎となるFlashCopyマップ用に割り振られている正確に同じ時刻が変更された場合に発生することがあります。 """,FlashCopy
+Symptom,Single Node Assert
+Environment,Systems running v7.3 or later using FlashCopy
+Trigger,None
+Workaround,None
+HU01019,All,Suggested,"Customized grids view in GUI is not being returned after page refreshes 
+	            ","""GUIのカスタマイズ・グリッド・ビュー・ページの後に戻されていないリフレッシュ """,Graphical User Interface
+Symptom,None
+Environment,Systems running v7.4 or later
+Trigger,"Press F5 to refresh ""volumes"" (or ""hosts"") page with customized columns shown"
+Workaround,"Remove the URL characters after ""#"" and press enter to reload this page"
+HU01028,SVC,Suggested,"Processing of lsnodebootdrive output may adversely impact management GUI performance 
+	            ","""管理GUIのパフォーマンスに悪影響を及ぼす可能性があるlsnodebootdriveの出力の処理 """,Graphical User Interface
+Symptom,None
+Environment,SVC systems running v7.5 and earlier
+Trigger,None
+Workaround,Restart tomcat service
+HU01030,All,Suggested,"Incremental FlashCopy always requires a full copy 
+	            ","""増分FlashCopyは常にフル・コピーが必要です """,FlashCopy
+Symptom,None
+Environment,Systems running v6.3 or later using FlashCopy
+Trigger,None
+Workaround,Remove the affected FC map from the consistency group and then add it back
+HU01046,"SVC, V7000",Suggested,"Free capacity is tracked using a count of free extents. If a child pool is shrunk the counter can wrap causing incorrect free capacity to be reported. 
+	            ","""空き容量の空きエクステント・カウントを使用して追跡されます。  子供プールはカウンター縮小され報告される正しくない空き容量をラップすることができます。 """,
+Symptom,None
+Environment,SVC & V7000 systems running v7.5
+Trigger,None
+Workaround,None
+HU01052,SVC,Suggested,"GUI operation with large numbers of volumes may adversely impact performance 
+	            ","""多数のボリュームでGUI操作のパフォーマンスに悪影響を及ぼす可能性がある """,Performance
+Symptom,Performance
+Environment,SVC systems with CG8 model nodes or older running v7.4 or later
+Trigger,Configurations with very high numbers of volumes
+Workaround,Disable GUI
+HU01059,"SVC, V7000, V5000, V3700",Suggested,"When a tier in a storage pool runs out of free extents Easy Tier can adversely affect performance 
+	            ","""ストレージ・プール内の層のEasy Tierのパフォーマンスに悪影響を及ぼすことができるフリー・エクステントが使い尽くされると """,EasyTier
+Symptom,Performance
+Environment,Systems running v7.5 or later with Easy Tier enabled
+Trigger,A tier in a storage pool runs out of free extents
+Workaround,Ensure tiers do not run out of capacity
+HU01070,All,Suggested,"Increased preparation delay when FlashCopy Manager initiates a backup. This does not impact the performance of the associated data transfer. 
+	            ","""FlashCopy Managerは、バックアップを開始するときに準備の遅延。  これは、関連するデータ転送のパフォーマンスへの影響はありません。 """,FlashCopy
+Symptom,None
+Environment,Systems running v7.3 or later using FlashCopy Manager
+Trigger,Initiate a backup with FlashCopy Manager
+Workaround,None
+HU01080,All,Suggested,"Single node assert due to a IO timeout in cache 
+	            ","""単一ノード・キャッシュ入出力タイムアウトにより表明 """,
+Symptom,Single Node Assert
+Environment,Systems running v7.3 or later
+Trigger,None
+Workaround,None
+HU01081,All,Suggested,"When removing multiple nodes from a cluster a remaining node may assert 
+	            ","""残りのノードを表明する可能性があるクラスターに複数のノードを除去する場合 """,
+Symptom,Single Node Assert
+Environment,Systems running v7.5 or later presenting volumes to VMware hosts
+Trigger,Issue two rmnode commands in rapid sequence
+Workaround,Pause between rmnode commands 
+HU01087,"SVC, V7000, V5000, V3700",Suggested,"With a partnership stopped at the remote site the stop button, in the GUI, at the local site will be disabled 
+	            ","""提携停止をリモート・サイトの停止」ボタンでは、GUIでは、ローカル・サイトでは使用不可になります ""","Global Mirror, Metro Mirror"
+Symptom,None
+Environment,Systems running v7.3 or later using remote copy partnerships
+Trigger,Stop partnership on remote cluster
+Workaround,Use CLI to stop the partnership
+HU01094,All,Suggested,"Single node assert due to rare resource locking contention 
+	            ","""単一のノードから希少資源ロック競合が原因と主張 """,Hosts
+Symptom,Single Node Assert
+Environment,Systems running v7.5 or later presenting volumes to VMware hosts
+Trigger,None
+Workaround,None
+HU01096,"SVC, V7000",Suggested,"Batteries may be seen to continuously recondition 
+	            ","""バッテリーは連続的に前提を見かけることがある """,
+Symptom,None
+Environment,DH8 & V7000 systems
+Trigger,None
+Workaround,Replace battery
+IC85931,All,Suggested,"When the user is copying statistic files between nodes the automatic clean up process may occasionally result in an failure message in the event log 
+	            ","""ユーザーのノードの自動クリーンアップ・プロセスの間の統計ファイルをコピーするときは、イベント・ログ内の障害メッセージになる可能性があります """,
+Symptom,None
+Environment,All
+Trigger,Copying iostats files between nodes
+Workaround,None
+HU00819,All,HIPER,"Large increase in response time of Global Mirror primary volumes due to intermittent connectivity issues 
+	            ","""大容量増加Global Mirrorの応答時間の断続的な接続による1次ボリュームを出す """,Global Mirror
+Symptom,Loss of Access to Data
+Environment,Systems running V7.4 or later using Global Mirror
+Trigger,Connectivity issues between the primary and secondary cluster
+Workaround,Use a lower link tolerance setting to prevent host impact on the primary
+HU01051,All,HIPER,"Large increase in response time of Global Mirror primary volumes when replicating large amounts of data concurrently to secondary cluster 
+	            ","""2次クラスターに同時に大量のデータを複製する際にグローバル・ミラーの1次ボリュームの応答時間の大きな増加 """,Global Mirror
+Symptom,Performance
+Environment,Systems running V7.4 or later using a large number of Global Mirror relationships
+Trigger,None
+Workaround,None
+HU00891,All,"
+		        High Importance
+		    ","The extent database defragmentation process can create duplicates whilst copying extent allocations resulting in a node assert to recover the database 
+	            ","""エクステント・データベースのデフラグ処理されるノードでデータベースをリカバリーするためにある程度コピーの割り振り中に複製を作ることができます """,Thin Provisioning
+Symptom,Multiple Node Asserts
+Environment,Systems running V7.3 or later using Thin Provisioning
+Trigger,None
+Workaround,None
+HU00923,"SVC, V7000, V5000","
+		        High Importance
+		    ","Single node assert when receiving frame errors on 16GB Fibre Channel adapters 
+	            ","""単一ノードの16GBファイバー・チャネル・アダプター上のフレーム・エラーの受信時に表明 ""","Reliability, Availability and Serviceability "
+Symptom,Single Node Assert
+Environment,Systems using 16GB FC adapters
+Trigger,When error conditions are present in the fibre channel network
+Workaround,None
+HU01056,All,"
+		        High Importance
+		    ","Both nodes in the same IO group assert 
+	            ","""同じ入出力グループ内の両方のノードを表明 """,vVols
+Symptom,Multiple Node Asserts
+Environment,Systems running V7.6 or later that are using vVols
+Trigger,VMWare ESX generates an unsupported (i.e. non-zero) Select Report on Report LUNs
+Workaround,None
+HU01058,All,"
+		        High Importance
+		    ","Multiple node asserts when vdisks that are part of FlashCopy maps go offline (e.g due to insufficient space) 
+	            ","""複数のノードがFlashCopyマッピングの一部であるVDiskをオフラインにする(例えば、スペース不足のため)と主張している """,FlashCopy
+Symptom,Multiple Node Asserts
+Environment,Systems running V7.5 using FlashCopy
+Trigger,FlashCopy target volumes go offline (e.g. SE target volumes run out of available space)
+Workaround,Prevent VDisks from going offline
+HU00756,"SVC, V7000",Suggested,"Performance statistics BBCZ counter values reported incorrectly 
+	            ","""誤って報告されるパフォーマンス統計BBCZカウンターの値 """,System Monitoring
+Symptom,None
+Environment,Systems using 16GB FC adapters
+Trigger,None
+Workaround,None
+HU00831 (reverted in 7.5.0.8),All,Suggested,"Single node assert due to hung IO caused by cache deadlock 
+	            ","""単一のノードキャッシュデッドロックが原因でハングした入出力による主張 """,
+Symptom,Single Node Assert
+Environment,Systems running V7.2 or later
+Trigger,Hosts sending many large block IOs that use many credits per IO
+Workaround,None
+HU00975,All,Suggested,"Single node assert due to a race condition reordering of the background process when allocating IO blocks 
+	            ","""単一のノードからI/Oブロックを割り振る場合には、バックグラウンド・プロセスの競合状態を再配列する予定を表明 """,FlashCopy
+Symptom,Single Node Assert
+Environment,Systems running V7.5 or later using FlashCopy
+Trigger,None
+Workaround,None
+HU01029,SVC,Suggested,"Where a boot drive has been replaced, with a new unformatted one, on a DH8 node the node may assert when the user logs in as superuser to 
+	            the CLI via its service IP or they log into the node via the service GUI. 
+	            Additionally where the node is the config node this may happen when the user logs in, as superuser, to the cluster via CLI or management GUI. 
+	            ","""ブート・ドライブの代わりに、新しいフォーマットは、DH8ノード上でノード・ユーザーがスーパーユーザーのログイン時に表明する可能性があるとされている場合 \n \t            サービスIPを介したCLIまたはGUIを介してサービス・ノードにログインします。  \n\t            さらに、ノードは構成ノードのユーザー・ログには、スーパーユーザーとして、クラスターをCLIまたは管理GUIを使用するときに発生することがあります。 """,
+Symptom,Single Node Assert
+Environment,DH8 clusters running V7.3 or later
+Trigger,"Replace boot drive with new, uninitialised drive. Attempt to login to service assistant as ""superuser""."
+Workaround,Send necessary service commands to the node from another node in the cluster. Put node into service and resync the drive.
+HU01073,SVC,Suggested,"SVC CG8 nodes have internal SSDs but these are not displayed in ""internal storage"" page 
+	            ","""SVC CG8ノードの内蔵SSDを持つが、これらの「内部ストレージ」ページには表示されません """,
+Symptom,None
+Environment,CG8 clusters running V7.5 or later
+Trigger,IO group name contains '-'
+Workaround,"Use ""svcinfo lsdrive"" to get internal SSDs status."
+HU01033,All,"
+		        High Importance
+		    ","After upgrade to V7.5.0.5 both nodes assert 
+	            ","""V7.5.0.5の両方のノードがアップグレード後に表明 """,System Update
+Symptom,Multiple Node Asserts
+Environment,Systems running V7.5.0.5
+Trigger,Upgrading to V7.5.0.5
+Workaround,None
+HU00922,"SVC, V7000",Critical,"Loss of access to data when moving volumes to another IO group using the GUI 
+	            ","""GUIを使用してボリュームを別の入出力グループに移動する際にデータへのアクセスの消失 ""","Graphical User Interface, Hosts"
+Symptom,Loss of Access to Data
+Environment,Systems with multiple IO groups
+Trigger,Moving volumes between IO groups using the GUI
+Workaround,Use the CLI to move volumes between IO groups
+HU00980,"SVC, V7000",Critical,"Enhanced recovery procedure for compressed volumes affected by APAR HU00898. For more details refer to the following 
+	             Flash
+","""APAR HU00898によって影響を受ける圧縮ボリュームの拡張リカバリー手順です。  詳細については以下を参照してください \n \t             フラッシュ """,Compression
+Symptom,Loss of Access to Data
+Environment,Systems running V7.3.0 or later that are using compressed volumes
+Trigger,None
+Workaround,None
+HU00740,All,"
+		        High Importance
+		    ","Read/write performance latencies due to high CPU utilisation from Easy Tier 3 processes on the configuration node. 
+	            ","""構成ノード上でEasy Tier 3のプロセスによるCPUの高稼働により読み取り/書き込みパフォーマンスの遅延。 """,EasyTier
+Symptom,Performance
+Environment,Systems running V7.3 or later with Easy Tier enabled that have many extents (>1million) 
+Trigger,High volume workloads
+Workaround,Disable Easy Tier
+HU00913,"SVC, V7000, V5000, V3700","
+		        High Importance
+		    ","Multiple node asserts when using a Metro Mirror or Global Mirror volume that is greater than 128TB 
+	            ","""複数のノードが128TBより大きいと断言したメトロ・ミラーまたはグローバル・ミラー・ボリュームを使用する際に ""","Metro Mirror, Global Mirror, Global Mirror With Change Volumes"
+Symptom,Multiple Node Asserts
+Environment,"Systems using Metro Mirror, Global Mirror or Global Mirror With Change Volumes "
+Trigger,IO to a global mirror volume that is larger than 128TB 
+Workaround,Keep vdisk size to less than 128TB when using replication services
+HU00991,SVC,"
+		        High Importance
+		    ","Performance impact on read pre-fetch workloads 
+	            ","""読む前にパフォーマンスへの影響はワークロードの取得 """,Performance
+Symptom,Performance
+Environment,Systems running V7.3 or later
+Trigger,Sequential read IO workloads smaller than 32K
+Workaround,Tune application sequential read IO to 32K or greater
+II14778,All,"
+		        High Importance
+		    ","Reduced performance for volumes which have the configuration node as their preferred node due to GUI processing the update of volume attributes where there is a large number of changes required 
+	            ","""ボリュームのパフォーマンス低下は、構成ノードの優先ノードのGUIによる多数の変更ボリュームの属性の更新処理が必要 """,Performance
+Symptom,Performance
+Environment,Systems that have a large number of volumes (1000+) 
+Trigger,Using the GUI when a large number of volumes have regularly changing attributes
+Workaround,Disable GUI 
+HU00890,V7000,Suggested,"Technician port inittool redirects to SAT GUI 
+	            ","""技術員ポートinittool SAT GUIにリダイレクトします """,Graphical User Interface
+Symptom,Configuration
+Environment,OEM V7000 Gen 2 systems
+Trigger,Initialise cluster via the technician port
+Workaround,Use SAT GUI or USB stick to initialise the cluster
+HU00936,All,Suggested,During the vdisk repair process the compression engine restores a larger amount of data than required leading to the vdisk being offline ,"""圧縮エンジンがオフラインにされるVDiskに先行されたデータの量が大きく復元VDisk修復プロセス中 """,Compression
+Symptom,Offline Volumes
+Environment,Systems running v7.3.0 or later that are using compressed volumes
+Trigger,None
+Workaround,None
+HU00967,All,"
+		        Critical
+		    ","Multiple asserts due to FlashCopy background copy limitation putting both nodes in service state
+	            ","""複数サービスの両方のノードを状態のFlashCopyバックグラウンド・コピー制限による主張 """,FlashCopy
+Symptom,Loss of Access to Data
+Environment,Systems running V7.5 or later using FlashCopy
+Trigger,FlashCopy
+Workaround,None
+HU00840,All,"
+		        High Importance
+		    ","Node asserts when Spectrum Virtualize iSCSI target receives garbled packets 
+	            ","""ノードがフルスペクトルの仮想iSCSIターゲットが文字化けするパケットを受け取ると表明 """,iSCSI
+Symptom,Multiple Node Asserts
+Environment,Systems presenting volumes to VMware hosts
+Trigger,Corrupt iSCSI packets from host
+Workaround,Disable TSO
+HU00499,"SVC, V7000, V5000, V3700",HIPER,"Loss of access to data when a volume that is part of a Global Mirror Change Volumes relationship is removed with the 'force' flag. 
+	            ","""データへのアクセスの消失がグローバル・ミラー変更ボリュームを関係の一部であるボリュームの'force 'フラグで除去された時です。 """,Global Mirror With Change Volumes
+Symptom,Loss of Access to Data
+Environment,Systems using Global Mirror with Change Volumes
+Trigger,Deleting a volume which is a secondary in a GMCV relationship and part of a consistency group.
+Workaround,"Avoid the use of the 'rmvdisk -force' command when there are remote copy relationships attached, instead use 'svctask chrcrelationship -nonauxchange' followed by 'svctask rmvdisk' "
+HU00898,"SVC, V7000",HIPER,"Potential data loss scenario when using compressed volumes on SVC and Storwize V7000 running software versions 7.3, 7.4 or 7.5. For more details refer to the following 
+	             Flash
+","""SVCおよびStorwize V7000を実行しているソフトウェア・バージョン7.3、7.4、または7.5に圧縮ボリュームを使用する場合の潜在的なデータ損失シナリオ。  詳細については以下を参照してください \n \t             フラッシュ """,Compression
+Symptom,None
+Environment,Systems running V7.3.0 or later that are using compressed volumes
+Trigger,None
+Workaround,None
+HU00809,SVC,Critical,"Both nodes shutdown when power is lost to one node for more than 15 seconds 
+	            ","""両方のノードの電源が15秒以上の場合は1つのノードが失われたときにシャットダウン ""","Reliability, Availability and Serviceability "
+Symptom,Loss of Access to Data
+Environment,SVC systems with CG8 model nodes or older that are running in Split Cluster configuration 
+Trigger,AC power loss to one Node
+Workaround,None
+HU00841,"V7000, V5000, V3700, V3500",Critical,"Multiple node asserts leading to loss of access to data when changing a volume throttle rate to a value of more than 10000 IOPs or 40MBps 
+	            ","""複数のノード・データへのアクセスの消失が主要10000 IOPまたは40MBps以上の値はスロットル率出来高変化と主張 """,Hosts
+Symptom,Loss of Access to Data
+Environment,Systems running V7.5.0 or later
+Trigger,Changing the volume throttling attribute to a value of more than 10000 IOPs or 40MBps
+Workaround,Do not change volume throttle rate
+HU00904,"SVC, V7000, V5000, V3700",Critical,"Multiple node asserts leading to loss of access to data when the link used for IP Replication experiences packet loss and the data transfer rate occasionally drops to zero 
+	            ","""複数のノードでトップクラスのデータへのアクセスが失われる時にIPレプリケーション体験パケット・ロスとデータ転送速度を使用するリンクがゼロに低下すると表明 """,IP Replication
+Symptom,Loss of Access to Data
+Environment,Systems running V7.4.0.5 or V7.5.0.2 that are using IP Replication
+Trigger,When the IP link used for replication experiences packet loss and the data transfer rate occasionally drops to zero
+Workaround,None
+HU00828,"SVC, V7000, V5000, V3700","
+		        High Importance
+		    ","FlashCopies take a long time or do not complete when the background copy rate set is non-zero  
+	            ","""FlashCopyには時間がかかるか、バックグラウンド・コピー率の設定がゼロ以外の場合に完了しない """,FlashCopy
+Symptom,Performance
+Environment,Systems using FlashCopy
+Trigger,FlashCopy operation when the background copy rate set is non-zero
+Workaround,"Using the CLI ""chfcmap"" command set the FlashCopy clean rate to zero, then set it again to a non-zero value"
+HU00821,All,"
+		        High Importance
+		    ","Single node assert due to HBA firmware behaviour 
+	            ","""単一のノードからHBAファームウェアを動作によって表明 """,
+Symptom,Single Node Assert
+Environment,All
+Trigger,None
+Workaround,None
+HU00832,V3700,"
+		        High Importance
+		    ","Automatic licensed feature activation fails for 6099 machine type 
+	            ","""自動ライセンス交付を受けたフィーチャーのアクティベーションは6099マシン・タイプで失敗する """,Graphical User Interface
+Symptom,Configuration
+Environment,V3700 systems with 6099 machine type
+Trigger,Automatic feature activation using the GUI
+Workaround,Use manual license activation (via GUI or CLI)
+HU00833,All,"
+		        High Importance
+		    ","Single node assert when the mkhost cli command is run without the '-iogrp' flag 
+	            ","""単一のノードからcli mkhostコマンドは、' iogrp'フラグを指定せずに実行されていると主張 """,
+Symptom,Single Node Assert
+Environment,Systems running V7.5.0 or later that have previously run V6.3.0 or earlier
+Trigger,Running mkhost CLI command without the '-iogrp' flag. Note. Host objects created using the GUI will not cause this issue.
+Workaround,Run the mkhost cli command with the '-iogrp' flag
+HU00843,V7000,"
+		        High Importance
+		    ","Single Node Assert when there is a high volume of ethernet traffic on link used for IP replication/iSCSI 
+	            ","""IPレプリケーション/iSCSIに使用されるリンク・イーサネット・トラフィック量の多いシングルノードを表明 ""","IP Replication, iSCSI"
+Symptom,Single Node Assert
+Environment,V7000 Generation 1 systems running V7.5.0 that are using IP Replication or ISCSI
+Trigger,Heavily used IP links
+Workaround,Reduce the amount of traffic on the link used for IP replication/iSCSI
+HU00844,"SVC, V5000, V3700","
+		        High Importance
+		    ","Multiple node asserts following installation of an additional SAS HIC  
+	            ","""複数のノードのSAS HICがインストール後に表明 ""","Reliability, Availability and Serviceability "
+Symptom,Multiple Node Asserts
+Environment,"SVC systems with DH8 model nodes, V5000 + V3700 running V7.5.0 or later"
+Trigger,When installing an additional SAS HIC
+Workaround,"A workaround is possible, contact support for assistance"
+HU00845,V3700,"
+		        High Importance
+		    ","Trial licenses for licensed feature activation are not available 
+	            ","""ライセンス交付を受けた機能のアクティベーションの試用ライセンスを使用できません """,
+Symptom,Configuration
+Environment,V3700 systems that were created on V7.4 or V7.5
+Trigger,None
+Workaround,None
+HU00902,"SVC, V7000, V5000, V3700","
+		        High Importance
+		    ","Starting a Global Mirror Relationship or Consistency Group fails after changing a relationship to not use Change Volumes 
+	            ","""グローバル・ミラー関係または整合性グループの開始の変更ボリュームを使用しないように関係の変更後に失敗する """,Global Mirror
+Symptom,Configuration
+Environment,Systems using Global Mirror
+Trigger,"This issue is triggered by changing relationships from Global Mirror with Change Volumes to simple Global Mirror (without Change Volumes) while the secondary volume is inconsistent 
+	                        (i.e.background copy is still in progress). This is achieved by setting the cycling mode of the relationship to ""none""."
+Workaround,"Avoid setting the cycling mode to""none"" if the secondary volume is inconsistent"
+HU00905,All,Suggested,"The serial number value displayed in the GUI node properties dialog is incorrect 
+	            ","""GUIでノードのプロパティー・ダイアログで表示されるシリアル番号の値が正しくありません """,Graphical User Interface
+Symptom,None
+Environment,All
+Trigger,None
+Workaround,The correct Node serial number value can be displayed using cli command 'svcinfo lsnodevpd'
+HU00725,"SVC, V7000, V5000, V3700",HIPER,"Loss of access to data when adding a Global Mirror Change Volume relationship to a consistency group on the primary site, when the secondary site does not have a secondary volume defined.
+	            ","""データへのアクセスの消失が1次サイトでの整合性グループは、2次サイトの2次ボリュームが定義されていない場合には、グローバル・ミラー変更ボリューム関係を追加する。 """,Global Mirror With Change Volumes
+Symptom,Loss of Access to Data
+Environment,Systems using Global Mirror with Change Volumes
+Trigger,Adding a GMCV relationship to a consistency group on the primary site
+Workaround,Create a volume on the secondary cluster and associate the volume with the relationship before adding the relationship on the primary cluster
+HU00816 ,"SVC, V7000",HIPER,"Loss of access to data following upgrade to V7.5.0.0 or 7.5.0.1 when,
+	             i) the cluster has previously run release 6.1.0 or earlier at some point in its life span  or 
+	             ii) the cluster has 2,600 or more MDisks 
+	            ","""データへのアクセスの消失にV7.5.0.0または7.5.0.1にアップグレード後、\n \t             i)クラスターは以前のリリース6.1.0またはその寿命はある時点で以前実行したか \n \t             ii)クラスターが2,600またはそれ以上のMDiskがある """,
+Symptom,Loss of Access to Data
+Environment,All
+Trigger,Upgrade to V7.5.0.0 or 7.5.0.1
+Workaround,IBM Support can provide tooling that will prevent this issue
+HU00745,"SVC, V7000, V5000, V3700","
+		        High Importance
+		    ","IP Replication does not return to using full throughput following packet loss on IP link used for replication
+	            ","""IPレプリケーションレプリケーションに使用されるIPリンク上でフル・スループットを以下のパケット・ロスを使用するには戻りません """,IP Replication
+Symptom,Performance
+Environment,Systems using IP Replication
+Trigger,Packet loss on IP link 
+Workaround,After the IP link is stabilised: Stop the IP partnership  Start the IP partnership  Stop all remote copy relationships  Start all relationships
+HU00825,"V7000, V5000, V3700, V3500","
+		        High Importance
+		    ","Java exception error when using the Service Assistant GUI to complete an enclosure replacement procedure 
+	            ","""エンクロージャーの取り替え手順を完了するには、サービス・アシスタントGUIを使用する際にJava例外・エラー """,Graphical User Interface
+Symptom,Configuration
+Environment,All
+Trigger,When replacing an enclosure
+Workaround,Use the Service Assistant cli to complete enclosure replacement procedure
+HU00820,"V7000, V5000, V3700, V3500",Critical,"Data integrity issue when using encrypted arrays. For more details refer to the following 
+	             Flash
+","""暗号化された配列を使用してデータ保全性の問題。  詳細については以下を参照してください \n \t             フラッシュ ""","Encryption, Backend Storage"
+Symptom,None
+Environment,Systems running V7.4.0 or later which are using Encryption
+Trigger,Internal SAS network recovery actions
+Workaround,None
+HU00815,"SVC, V7000, V5000, V3700",HIPER,"FlashCopy source and target volumes offline when FlashCopy maps are started.
+	            ","""FlashCopyのソースおよびターゲット・ボリュームをオフラインのFlashCopyマップが開始されます。 """,FlashCopy
+Symptom,Offline Volumes
+Environment,Systems using FlashCopy
+Trigger,"If a FlashCopy map is started or a node is reset following upgrade to V7.5.0.0. Please note, if the system is upgraded from version 7.3 or below then the
+                            upgrade contains an additional ""completion"" step at the end that will warm start each node. This can trigger the issue as well."
+Workaround,Contact IBM Support for further details.
+HU00804,"V7000, V5000, V3700, V3500",Critical,"Loss of access to data due to SAS recovery mechanism operating on both nodes in IO group simultaneously  
+	            ","""SAS入出力グループ内の両方のノードで同時にオペレーティング・リカバリー機構によるデータへのアクセスの消失 """,
+Symptom,Loss of Access to Data
+Environment,All
+Trigger,None
+Workaround,None
+HU00638,All,Critical,"Multiple node asserts when there is high backend latency  
+	            ","""複数のノードがある高バックエンド待ち時間と主張 """,Hosts
+Symptom,Multiple Node Asserts
+Environment,All
+Trigger,None
+Workaround,None
+HU00671,"V7000, V5000, V3700, V3500",Critical,"1691 error on arrays when using multiple FlashCopies of the same source. For more details refer to the following 
+	             Flash
+","""配列の1691エラーは、同じソースの複数のFlashCopyを使用する場合に便利です。  詳細については以下を参照してください \n \t             フラッシュ ""","FlashCopy, Backend Storage"
+Symptom,None
+Environment,Systems running V7.3.0 or later using FlashCopy
+Trigger,Start and stop of FlashCopy mappings when there are multiple FlashCopies of the same source volume
+Workaround,None
+HU00764,All,Critical,"Loss of access to data due to persistent reserve host registration keys exceeding the current supported value of 256 
+	            ","""現在サポートされている値の256を超える永続予約ホスト登録キーによるデータへのアクセスの消失 """,Hosts
+Symptom,Loss of Access to Data
+Environment,Systems with clustered hosts using SCSI-3 persistent reservation
+Trigger,Number of host reservation keys exceeds 256
+Workaround,Reduce the number of volume to host mappings where possible
+HU00811,"SVC, V7000, V5000",Critical,"Loss of access to data when SAN connectivity problems leads to backend controller being detected as incorrect type 
+	            ","""SAN接続の問題のバックエンド・コントローラーの誤ったタイプが検出されるに至るデータへのアクセスの消失 """,Backend Storage
+Symptom,Loss of Access to Data
+Environment,Systems virtualising external storage controllers
+Trigger,SAN connectivity problems
+Workaround,None
+HU00281,All,"
+		        High Importance
+		    ","Single node assert due to internal code exception 
+	            ","""単一ノードの内部コードの例外が原因で表明 """,
+Symptom,Single Node Assert
+Environment,All
+Trigger,None
+Workaround,None
+HU00519,"SVC, V7000, V5000, V3700","
+		        High Importance
+		    ","Single node assert due to flash copy deadlock condition 
+	            ","""単一ノードのフラッシュ・コピーのデッドロック状態が原因と主張 """,FlashCopy
+Symptom,Single Node Assert
+Environment,Systems using FlashCopy 
+Trigger,Starting and stopping a FlashCopy mapping
+Workaround,None
+HU00644,All,"
+		        High Importance
+		    ","Multiple node asserts when node port receives duplicate frames during a specific IO timing window 
+	            ","""複数のノードでノード・ポートの特定のI/Oタイミング・ウィンドウ中に重複したフレームを受け取ると主張 """,
+Symptom,Multiple Node Asserts
+Environment,Systems running V7.3.0 or later
+Trigger,Node receives duplicate Fibre Channel frames
+Workaround,Stop the host/SAN from sending duplicate frames
+HU00659,"SVC, V7000, V5000, V3700","
+		        High Importance
+		    ","Global Mirror with Change Volumes freeze time reported incorrectly 
+	            ","""グローバル・ミラー変更ボリューム停止時刻が誤って報告 """,Global Mirror With Change Volumes
+Symptom,None
+Environment,Systems running V7.4.0 or later that are using Global Mirror with Change Volumes
+Trigger,None
+Workaround,None
+HU00673,"V7000, V5000, V3700, V3500","
+		        High Importance
+		    ","Drive slot is not recognised following 'drive auto manage' procedure
+	            ","""以下のドライブ・スロット」ドライブの自動管理」の手順が認識されません """,
+Symptom,None
+Environment,Systems running V7.4.0 or later
+Trigger,Disk drive recovery action using 'drive auto manage' procedure
+Workaround,Reseating a canister in the effected enclosure will correct  the drive slot state
+HU00675,All,"
+		        High Importance
+		    ","Node assert following node start up/restart due to invalid CAW domain state 
+	            ","""無効確認ドメインの状態が原因でノード/再始動を以下のノードを始動する """,
+Symptom,Single Node Assert
+Environment,Systems running V7.4.0 or later with VMware hosts using VAAI CAW feature 
+Trigger,Following restart of a node
+Workaround,None
+HU00726,"SVC, V7000, V5000","
+		        High Importance
+		    ","Single node assert due to stuck IO following offline mdisk group condition
+	            ","""単一のノードから離れ入出力のオフラインMDiskグループの状態が原因と主張 """,Storage Virtualisation
+Symptom,Single Node Assert
+Environment,Systems running V7.3.0 or later that are virtualising external storage controllers
+Trigger,Offline Mdisk group (when mdisks are from an external storage controller)
+Workaround,Prevent external conditions that can take an Mdisk group offline
+HU00735,All,"
+		        High Importance
+		    ","Host IO statistics incorrectly including logically failed writes
+	            ","""ホストの入出力統計が論理的に正しくなかったなどの書き込み """,System Monitoring
+Symptom,None
+Environment,All
+Trigger,None
+Workaround,None
+HU00806,"SVC, V7000","
+		        High Importance
+		    ","mkarray command fails when creating an encrypted array due to pending bitmap state
+	            ","""・ビットマップのペンディング状態のため暗号化された配列を作成するときにmkarrayコマンドが失敗する """,Encryption
+Symptom,Configuration
+Environment,Systems running V7.4.0 or later using encryption
+Trigger,Creating an encrypted array
+Workaround,Resetting each node in cluster will reset the bitmap state and allow the mkarray command to complete successfully
+HU00807,"SVC, V7000, V5000, V3700","
+		        High Importance
+		    ","Increase in node cpu usage due to FlashCopy mappings with high cleaning rate
+	            ","""高い浄化率とFlashCopyマッピングによるノードのCPU使用率の増加 """,FlashCopy
+Symptom,Performance
+Environment,Systems using FlashCopy
+Trigger,Large number of concurrent FlashCopy mappings with high cleaning rate 
+Workaround,Lower the clean rate on FlashCopy mappings
+HU00468,"V7000, V5000, V3700, V3500",Suggested,"Drive firmware task not removed from GUI 'running tasks' display following completion of drive firmware update action
+	            ","""GUIの実行中タスクの表示完了後のドライブ・ファームウェア更新のアクションから除去されないドライブ・ファームウェア・タスク """,Graphical User Interface
+Symptom,None
+Environment,Systems running V7.3.0 or later
+Trigger,Drive firmware update
+Workaround,Issue a new applydrivesoftware command to a drive that does not exist
+HU00525,All,Suggested,"Unable to manually mark 'monitoring' events in the event log as fixed
+	            ","""修正済みのイベント・ログの「モニタリング」イベントを手動でマークを付けることができません """,System Monitoring
+Symptom,None
+Environment,All
+Trigger,None
+Workaround,"None required, monitoring events will be fixed automatically after 25 hours have passed"
+HU00737,All,Suggested,"GUI does not warn of lack of space condition when collecting a Snap, this results in some files missing from the Snap
+	            ","""GUIは、Snapを収集する際にスペース不足状態の不足を警告しません。これはスナップから欠落しているいくつかのファイルになります """,Graphical User Interface
+Symptom,None
+Environment,All
+Trigger,Collecting a Snap when insufficient space exists in /dumps directory
+Workaround,Using cli to collect Snap will warn of low space condition
+HU00805,"V7000, V5000, V3700, V3500",Suggested,"Some SAS ports are displayed in hexadecimal values instead of decimal values in the performance statistics xml files 
+	            ","""SASポートは、パフォーマンス統計をXMLファイル内の10進数値の代わりに進値で表示されます """,System Monitoring
+Symptom,None
+Environment,All
+Trigger,None
+Workaround,None
+HU00808,All,Suggested,"NTP trace logs not collected on configuration node 
+	            ","""NTPのトレース構成ノードで収集されたログはありません """,Support Data Collection
+Symptom,None
+Environment,All
+Trigger,None
+Workaround,None
+IC92356,V7000,Suggested,"Improve DMP for handling 2500 event for V7000 using Unified storage 
+	            ","""ユニファイド・ストレージを使用してV7000に対して2500のイベントを処理するDMPの改善 """,Graphical User Interface
+Symptom,None
+Environment,V7000 systems using Unified storage
+Trigger,2500 Event
+Workaround,None
